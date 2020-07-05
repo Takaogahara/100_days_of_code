@@ -16,22 +16,22 @@ During the challenge I'll study these topics:
 1. Image Processing  
   1. Theoretical topics in "Digital Image Processing - Rafael C. Gonzalez and Richard E. Woods";  
   2. Applications with OpenCV library.  
-    1. Filters;
-    2. Edge detection;
-    3. Image segmentation;
-    4. Morphological operations;
-    5. Clustering;
-    6. Others.
+    1. Filters;  
+    2. Edge detection;  
+    3. Image segmentation;  
+    4. Morphological operations;  
+    5. Clustering;  
+    6. Others.  
 
-2. Machine Learning and Data Science
+2. Machine Learning and Data Science  
   1. Statistics for machine learning;  
-  2. "Types" of Machine Learning and its algorithms;
-  3. Metrics;
-  4. Deep Learning;
-  5. Collect and obtain data;
-  6. Data processing using Hadoop;
-  7. Practice with Kaggle competitions.
+  2. "Types" of Machine Learning and its algorithms;  
+  3. Metrics;  
+  4. Deep Learning;  
+  5. Collect and obtain data;  
+  6. Data processing using Hadoop;  
+  7. Practice with Kaggle competitions.  
 
 3. Computer Vision  
   1. Real time video processing;  
-  2. Real time video processing with machine learning methods.
+  2. Real time video processing with machine learning methods.  
