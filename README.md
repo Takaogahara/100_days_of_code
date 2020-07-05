@@ -13,7 +13,7 @@ Code minimum an hour every day for the next 100 days.
 The subjects will be divided in different repositories for better organization.  
 During the challenge I'll study these topics:
 
-1. Image Processing  
+**1. Image Processing**  
   - Theoretical topics in "Digital Image Processing - Rafael C. Gonzalez and Richard E. Woods";  
   - Applications with OpenCV library.  
     - Filters;  
@@ -23,7 +23,7 @@ During the challenge I'll study these topics:
     - Clustering;  
     - Others.  
     
-2. Machine Learning and Data Science  
+**2. Machine Learning and Data Science**  
   - Statistics for machine learning;  
   - "Types" of Machine Learning and its algorithms;  
   - Metrics;  
@@ -32,6 +32,6 @@ During the challenge I'll study these topics:
   - Data processing using Hadoop;  
   - Practice with Kaggle competitions.  
 
-3. Computer Vision  
+**3. Computer Vision**  
   - Real time video processing;  
   - Real time video processing with machine learning methods.  
