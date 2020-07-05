@@ -38,9 +38,9 @@ Durante o desafio, estudarei estes assuntos:
   
 ## Repositórios
 
-Processamento de Imagem [Hue](https://link).  
-Aprendizado de Máquina e Ciência de Dados [Hue](https://link).  
-Visão Computacional [Hue](https://link).  
+Processamento de Imagem [Hue](https://sem-link-ainda).  
+Aprendizado de Máquina e Ciência de Dados [Hue](https://sem-link-ainda).  
+Visão Computacional [Hue](https://sem-link-ainda).  
 
 ***
 
@@ -84,6 +84,6 @@ Visão Computacional [Hue](https://link).
 >
 >## Repositories
 >
->Image Processing [Hue](https://link).  
->Machine Learning and Data Science [Hue](https://link).  
->Computer Vision [Hue](https://link).  
+>Image Processing [Hue](https://sem-link-ainda).  
+>Machine Learning and Data Science [Hue](https://sem-link-ainda).  
+>Computer Vision [Hue](https://sem-link-ainda).  
