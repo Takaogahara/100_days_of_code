@@ -36,6 +36,7 @@ Durante o desafio, estudarei estes assuntos:
   - Processamento de vídeo em tempo real;  
   - Processamento de vídeo em tempo real com métodos de aprendizado de máquina.  
 
+***
 
 > # 100 Days of Code
 > 
