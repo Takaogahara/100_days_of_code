@@ -10,8 +10,8 @@ Programe no mínimo uma hora todos os dias durante os próximos 100 dias.
 
 ## Assuntos
 
-The subjects will be divided in different repositories for better organization.  
-During the challenge I'll study these topics:
+Os assuntos serão divididos em diferentes repositórios para uma organização melhor.  
+Durante o desafio, estudarei estes assuntos:
 
 **1. Processamento de Imagens**  
   - Tópicos teóricos em "Processamento Digital de Imagens - Rafael C. Gonzalez and Richard E. Woods";  
@@ -50,7 +50,7 @@ During the challenge I'll study these topics:
 > ## Subjects
 > 
 > The subjects will be divided in different repositories for better organization.  
-> During the challenge I'll study these topics:
+> During the challenge I'll study these subjects:
 > 
 > **1. Image Processing**  
 >   - Theoretical topics in "Digital Image Processing - Rafael C. Gonzalez and Richard E. Woods";  
