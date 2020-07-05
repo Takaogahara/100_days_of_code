@@ -35,6 +35,12 @@ Durante o desafio, estudarei estes assuntos:
 **3. Visão Computacional**  
   - Processamento de vídeo em tempo real;  
   - Processamento de vídeo em tempo real com métodos de aprendizado de máquina.  
+  
+## Repositórios
+
+Processamento de Imagem [Hue](https://link).  
+Aprendizado de Máquina e Ciência de Dados [Hue](https://link).  
+Visão Computacional [Hue](https://link).  
 
 ***
 
@@ -75,3 +81,9 @@ Durante o desafio, estudarei estes assuntos:
 > **3. Computer Vision**  
 >   - Real time video processing;  
 >   - Real time video processing with machine learning methods. 
+>
+>## Repositories
+>
+>Image Processing [Hue](https://link).  
+>Machine Learning and Data Science [Hue](https://link).  
+>Computer Vision [Hue](https://link).  
