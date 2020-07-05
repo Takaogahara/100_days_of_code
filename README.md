@@ -1,3 +1,5 @@
+
+```bash
 # 100 Days of Code
 
 Code minimum an hour every day for the next 100 days.
@@ -35,3 +37,4 @@ During the challenge I'll study these topics:
 **3. Computer Vision**  
   - Real time video processing;  
   - Real time video processing with machine learning methods.  
+```
