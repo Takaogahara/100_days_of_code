@@ -38,9 +38,8 @@ Durante o desafio, estudarei estes assuntos:
   
 ## Repositórios
 
-Processamento de Imagem [Hue](https://sem-link-ainda).  
-Aprendizado de Máquina e Ciência de Dados [Hue](https://sem-link-ainda).  
-Visão Computacional [Hue](https://sem-link-ainda).  
+[Processamento de Imagem/Visão Computacional](https://github.com/Takaogahara/Image_Processing)  
+[Aprendizado de Máquina e Ciência de Dados](https://github.com/Takaogahara/Machine_Learning)  
 
 ***
 
@@ -83,7 +82,5 @@ Visão Computacional [Hue](https://sem-link-ainda).
 >   - Real time video processing with machine learning methods. 
 >
 >## Repositories
->
->Image Processing [Hue](https://sem-link-ainda).  
->Machine Learning and Data Science [Hue](https://sem-link-ainda).  
->Computer Vision [Hue](https://sem-link-ainda).  
+> [Image Processing/Computer Vision](https://github.com/Takaogahara/Image_Processing)  
+> [Machine Learning and Data Science](https://github.com/Takaogahara/Machine_Learning)  
