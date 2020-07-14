@@ -34,11 +34,7 @@ Durante o desafio, estudarei estes assuntos:
 **3. Visão Computacional**  
   - Processamento de vídeo em tempo real;  
   - Processamento de vídeo em tempo real com métodos de aprendizado de máquina.  
-  
-## Repositórios Relacionados
-
-[Processamento de Imagem/Visão Computacional](https://github.com/Takaogahara/Image_Processing)  
-[Aprendizado de Máquina e Ciência de Dados](https://github.com/Takaogahara/Machine_Learning)  
+    
 
 ***
 
@@ -78,7 +74,3 @@ Durante o desafio, estudarei estes assuntos:
 > **3. Computer Vision**  
 >   - Real time video processing;  
 >   - Real time video processing with machine learning methods. 
->
->## Related Repositories
-> [Image Processing/Computer Vision](https://github.com/Takaogahara/Image_Processing)  
-> [Machine Learning and Data Science](https://github.com/Takaogahara/Machine_Learning)  
