@@ -10,7 +10,6 @@ Programe no mínimo uma hora todos os dias durante os próximos 100 dias.
 
 ## Assuntos
 
-Os assuntos serão divididos em diferentes repositórios para uma organização melhor.  
 Durante o desafio, estudarei estes assuntos:
 
 **1. Processamento de Imagens**  
@@ -36,7 +35,7 @@ Durante o desafio, estudarei estes assuntos:
   - Processamento de vídeo em tempo real;  
   - Processamento de vídeo em tempo real com métodos de aprendizado de máquina.  
   
-## Repositórios
+## Repositórios Relacionados
 
 [Processamento de Imagem/Visão Computacional](https://github.com/Takaogahara/Image_Processing)  
 [Aprendizado de Máquina e Ciência de Dados](https://github.com/Takaogahara/Machine_Learning)  
@@ -55,7 +54,6 @@ Durante o desafio, estudarei estes assuntos:
 > 
 > ## Subjects
 > 
-> The subjects will be divided in different repositories for better organization.  
 > During the challenge I'll study these subjects:
 > 
 > **1. Image Processing**  
@@ -81,6 +79,6 @@ Durante o desafio, estudarei estes assuntos:
 >   - Real time video processing;  
 >   - Real time video processing with machine learning methods. 
 >
->## Repositories
+>## Related Repositories
 > [Image Processing/Computer Vision](https://github.com/Takaogahara/Image_Processing)  
 > [Machine Learning and Data Science](https://github.com/Takaogahara/Machine_Learning)  
