@@ -13,7 +13,6 @@ __status__ = "Prototype"
 from sklearn.cluster import KMeans
 from math import sqrt
 import numpy as np
-import pandas as pd
 import cv2
 
 import datetime
@@ -43,10 +42,10 @@ def camera_capture(index=0, WIDTH=640, HEIGHT=480):
 
 def save_img(imagem, tipo, date_stamp='null', formato='png', OS=system_os):
     if OS == 'Windows':
-        cv2.imwrite('C:/Users/Rafael/Code/Projetos/Artigo/master/output/' +
+        cv2.imwrite('D:/Code/Source/Pharma CV/output/' +
                     date_stamp + '_' + str(tipo) + '.' + str(formato), imagem)
     elif OS == 'Linux':
-        cv2.imwrite('C:/Users/Rafael/Code/Projetos/Artigo/master/output/' +
+        cv2.imwrite('D:/Code/Source/Pharma CV/output/' +
                     date_stamp + '_' + str(tipo) + '.' + str(formato), imagem)
 
 # --------------------------------------------

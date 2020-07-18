@@ -10,15 +10,13 @@ __revision__ = "5"
 __status__ = "Prototype"
 
 # ------------------------------------------------------------------------------------------- Chamando libs
-from sklearn.cluster import KMeans
-from math import sqrt
 import utils_feature
+import cv2
+import numpy as np
+
 import sys
 import platform
 import datetime
-import cv2
-import pandas as pd
-import numpy as np
 import time
 start_time = time.time()
 
@@ -36,9 +34,9 @@ MEAN_AREA = 0
 orig_stdout = sys.stdout
 
 if system_os == 'Windows':
-    b = open('C:/Users/Rafael/Code/Projetos/Artigo/master/log/log_terminal.txt', 'a')
+    b = open('D:/Code/Source/Pharma CV/log/log_terminal.txt', 'a')
 elif system_os == 'Linux':
-    b = open('C:/Users/Rafael/Code/Projetos/Artigo/master/log/log_terminal.txt', 'a')
+    b = open('D:/Code/Source/Pharma CV/log/log_terminal.txt', 'a')
 sys.stdout = b
 
 for current_iter in range(1, 2):
@@ -47,10 +45,11 @@ for current_iter in range(1, 2):
     try:
         if system_os == 'Windows':
             frame = cv2.imread(
-                f'C:/Users/Rafael/Code/Projetos/Artigo/master/samples/neralgyn/{current_iter}.png', 1)
+                f'D:/Code/Source/Pharma CV/samples/neralgyn/{current_iter}.png', 1)
+                
         elif system_os == 'Linux':
             frame = cv2.imread(
-                f'C:/Users/Rafael/Code/Projetos/Artigo/master/samples/neralgyn/{current_iter}.png', 1)
+                f'D:/Code/Source/Pharma CV/samples/neralgyn/{current_iter}.png', 1)
 
         # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     except:
@@ -93,11 +92,11 @@ for current_iter in range(1, 2):
     # ------------------------------------------------------------------------------------------- K-MEAN
     try:
         frame_mean, colors_mean = utils_feature.k_mean(
-            frame_clache, K_iter=5, criteria_iter=25, criteria_eps=0.01)
+            frame_clache, K_iter=5, criteria_iter=50, criteria_eps=0.01)
     except:
         print('Erro: K-Mean')
 
-    # utils_feature.show_img(frame_mean, 'K Means')
+    utils_feature.show_img(frame_mean, 'K Means')
     # utils_feature.save_img(frame_mean, 'K-Mean', date_stamp)
 
     # ------------------------------------------------------------------------------------------- HSV Mask
