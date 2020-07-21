@@ -7,13 +7,15 @@ from tensorflow import keras
 # -----------------------------------------------------------------------------------
 
 def show_batch(image_batch, label_batch, CLASS_NAMES):
-    plt.figure(figsize=(10,10))
+    plt.figure(figsize=(10,5))
     
     for img_num in range(10):
         plt.subplot(5,5,img_num+1)
         plt.imshow(image_batch[img_num])
         plt.title(CLASS_NAMES[label_batch[img_num]])
         plt.axis('off')
+    
+    plt.show()
 
 # -----------------------------------------------------------------------------------
 
