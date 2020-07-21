@@ -92,7 +92,7 @@ for current_iter in range(1, 2):
     # ------------------------------------------------------------------------------------------- K-MEAN
     try:
         frame_mean, colors_mean = utils_feature.k_mean(
-            frame_clache, K_iter=5, criteria_iter=50, criteria_eps=0.01)
+            frame_clache, K_iter=5, criteria_iter=50, criteria_eps=50)
     except:
         print('Erro: K-Mean')
 
