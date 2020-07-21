@@ -6,4 +6,7 @@ Projeto com o objetivo de aplicar técnicas de processamento de imagem e visão 
   
 ## Changelog
 
-- Esperando nova versão
+#### Ver 1.0.0 - Em andamento
+
+- Utilização da operação Watershed para realizar detecção.
+- Atualização das funções do programa
