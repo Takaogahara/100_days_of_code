@@ -13,6 +13,7 @@ __status__ = "Prototype"
 from sklearn.cluster import KMeans
 from math import sqrt
 import numpy as np
+import colorsys
 import cv2
 
 import datetime
@@ -106,7 +107,6 @@ def apply_clache(imagem, clip_Limit=2.0, GridSize=8):
 
 
 def k_mean(imagem, K_iter=2, criteria_iter=5, criteria_eps=1.0):
-    # imagem = cv2.cvtColor(imagem, cv2.COLOR_RGB2HSV)
     criteria = (cv2.TERM_CRITERIA_MAX_ITER, criteria_iter, criteria_eps)
 
     Z = imagem.reshape((-1, 3))
@@ -126,9 +126,9 @@ def k_mean(imagem, K_iter=2, criteria_iter=5, criteria_eps=1.0):
     res = center[label.flatten()]
     img_kmean = res.reshape((imagem.shape))
 
-    color_list = get_color_value(label, center)
+    hsv_values, cv_hsv_values = get_color_value(label, center)
 
-    return img_kmean, color_list
+    return img_kmean, cv_hsv_values, hsv_values
 
 
 def get_color_value(Kmean_label, Kmean_center):
@@ -147,9 +147,23 @@ def get_color_value(Kmean_label, Kmean_center):
     for color_creator in range(0, (len(num_labels) - 1)):
         color_list[hist_label[color_creator]] = centroid_values[color_creator]
 
-    color_list_sort = sorted(color_list.items(), reverse=True)
+    color_list_sort_rgb = sorted(color_list.items(), reverse=True)
 
-    return color_list_sort
+    color_list_sort_hsv = []
+    color_list_sort_hsv_cv = []
+
+    for color_iter in range(len(color_list_sort_rgb)):
+        rgb_values = tuple(color_list_sort_rgb[color_iter][1])
+        rgb_values  = (rgb_values[0]/255.0), (rgb_values[1]/255.0), (rgb_values[2]/255.0)
+
+        hsv_values = colorsys.rgb_to_hsv(rgb_values[0], rgb_values[1], rgb_values[2])
+        hsv_values = int(hsv_values[0]*360), int(hsv_values[1]*100), int(hsv_values[2]*100)
+        color_list_sort_hsv.append(hsv_values)
+
+        cv_hsv_values = int(hsv_values[0]/360*180), int(hsv_values[1]/100*255), int(hsv_values[2]/100*255)
+        color_list_sort_hsv_cv.append(cv_hsv_values)
+
+    return color_list_sort_hsv, color_list_sort_hsv_cv
 
 
 def optimal_number_of_clusters(wcss, k_range):

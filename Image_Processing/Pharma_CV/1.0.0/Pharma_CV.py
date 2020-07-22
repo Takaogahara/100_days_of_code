@@ -47,6 +47,7 @@ for current_iter in range(1, 2):
             frame = cv2.imread(
                 f'D:/Code/Source/Pharma CV/samples/neralgyn/{current_iter}.png', 1)
 
+        # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     except:
         print('Erro: Carregar imagem')
 
@@ -66,46 +67,52 @@ for current_iter in range(1, 2):
     # utils.save_img(frame, 'Cropped')
 
     # ------------------------------------------------------------------------------------------- Gamma
-    try:
-        frame_gamma = utils.adjust_gamma(frame, gamma=2.0)
-    except:
-        print('Erro: Gamma')
+    frame_gamma = utils.adjust_gamma(frame, gamma=2.0)
 
-    utils.show_img(frame_gamma, 'Gamma')
+    # utils.show_img(frame_gamma, 'Gamma')
     # utils.save_img(frame, 'Gamma', date_stamp)
 
     # ------------------------------------------------------------------------------------------- CLACHE
-    try:
-        frame_clache = utils.apply_clache(
-            frame_gamma, clip_Limit=2.0, GridSize=8)
-    except:
-        print('Erro: Clache')
+    frame_clache = utils.apply_clache(
+        frame_gamma, clip_Limit=2.0, GridSize=8)
 
     # utils.show_img(frame_clache, 'Clache')
     # utils.save_img(frame, 'Clache', date_stamp)
 
     # ------------------------------------------------------------------------------------------- K-MEAN
-    try:
-        frame_mean, colors_mean = utils.k_mean(
-            frame_clache, K_iter=5, criteria_iter=50, criteria_eps=50)
-    except:
-        print('Erro: K-Mean')
+    frame_blur = cv2.medianBlur(frame_clache,5)
+
+    frame_mean, colors_mean_cv, colors_mean = utils.k_mean(
+        frame_blur, K_iter=5, criteria_iter=50, criteria_eps=50)
+
+    x = 10
 
     utils.show_img(frame_mean, 'K Means')
     # utils.save_img(frame_mean, 'K-Mean', date_stamp)
 
-    # ------------------------------------------------------------------------------------------- HSV Mask
-    try:
-        frame_segmented = utils.color_segmentation(
-            frame_mean, 'bgr',
-            cor_1_inf=[160, 0, 0])
-    except:
-        print('Erro: Segmentação de cores HSV')
+    # # ------------------------------------------------------------------------------------------- HSV Mask
+#     frame_segmented = utils.color_segmentation(
+#         frame_mean, 'bgr',
+#         cor_1_inf=[160, 0, 0])
 
-    utils.show_img(frame_segmented, 'Mascara de cores')
-    # utils.save_img(frame_segmented, 'Mascara', date_stamp)
+    # utils.show_img(frame_segmented, 'Mascara de cores')
+    # # utils.save_img(frame_segmented, 'Mascara', date_stamp)
 
-    # ------------------------------------------------------------------------------------------- Erode/Dilate
+    # # ------------------------------------------------------------------------------------------- Erode/Dilate
+    frame_mean = cv2.cvtColor(frame_mean, cv2.COLOR_BGR2GRAY)
+    ret, frame_thresh = cv2.threshold(frame_mean,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
+    # frame_closing = cv2.morphologyEx(
+    #     frame_mean, cv2.MORPH_CLOSE, np.ones((7, 7), dtype=np.uint8))
+
+    # frame_closing = cv2.erode(
+    #     frame_closing, np.ones((5, 5), np.uint8), iterations=1)
+    # frame_closing = cv2.dilate(frame_closing, np.ones(
+    #     (13, 13), np.uint8), iterations=1)
+
+
+    utils.show_img(frame_thresh, 'closing')
+    # utils.save_img(frame_closing, 'Closing', date_stamp)
+
 
 
 
