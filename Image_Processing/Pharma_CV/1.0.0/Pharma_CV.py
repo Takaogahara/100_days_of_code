@@ -9,6 +9,7 @@ __version__ = "1.0.0"
 import utils
 import cv2
 import numpy as np
+import matplotlib.pyplot as plt
 
 import sys
 import platform
@@ -85,21 +86,49 @@ for current_iter in range(1, 2):
     frame_mean, colors_mean_cv, colors_mean = utils.k_mean(
         frame_blur, K_iter=5, criteria_iter=50, criteria_eps=50)
 
-    x = 10
+    # utils.show_img(frame_mean, 'K Means')
+    # utils.save_img(frame_mean, 'K-Mean', date_stamp)c
 
-    utils.show_img(frame_mean, 'K Means')
-    # utils.save_img(frame_mean, 'K-Mean', date_stamp)
+    # ------------------------------------------------------------------------------------------- Filter HSV
+    frame_hsv = cv2.cvtColor(frame_mean, cv2.COLOR_BGR2HSV)
 
-    # # ------------------------------------------------------------------------------------------- HSV Mask
-#     frame_segmented = utils.color_segmentation(
-#         frame_mean, 'bgr',
-#         cor_1_inf=[160, 0, 0])
+    frame_bin = np.zeros(frame_mean.shape[:2], np.uint32)
+    # plt.imshow(frame_bin, cmap='gray')
+    # plt.show()
+    
+    for Y_axes in range(frame_hsv.shape[1]-1):
+        for X_axes in range(frame_hsv.shape[0]-1):
+            if frame_hsv[X_axes][Y_axes][1] > 30:
+                frame_bin[X_axes][Y_axes] = 1
+            else:
+                frame_bin[X_axes][Y_axes] = 0
 
-    # utils.show_img(frame_segmented, 'Mascara de cores')
-    # # utils.save_img(frame_segmented, 'Mascara', date_stamp)
+    frame_bin[frame_bin==1] = 255
 
-    # # ------------------------------------------------------------------------------------------- Erode/Dilate
-    frame_mean = cv2.cvtColor(frame_mean, cv2.COLOR_BGR2GRAY)
+    plt.imshow(frame_bin, cmap='gray')
+    plt.show()
+    
+    
+    ret, frame_thresh = cv2.threshold(frame_bin,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
+    x = 654157
+    
+
+    # for get_coi in range(len(colors_mean_cv)):
+    #     if colors_mean_cv[get_coi][1] > 20:
+    #         coi = colors_mean_cv[get_coi]
+    #         break
+
+    # threshold_upper_1 = np.array([coi[0]+2, 255, 255])
+    # threshold_lower_1 = np.array([coi[0]-2, 0, 0])
+
+    # threshold_mask_1 = cv2.inRange(frame_hsv, threshold_lower_1, threshold_upper_1)
+    # # frame_threshold = cv2.bitwise_or(threshold_mask_1, threshold_mask_2))
+
+    # utils.show_img(threshold_mask_1, 'Binarization')
+    # # utils.save_img(threshold_mask_1, 'Binarization', date_stamp)
+
+    # ------------------------------------------------------------------------------------------- Erode/Dilate
+    frame_bin = cv2.cvtColor(frame_bin, cv2.COLOR_BGR2GRAY)
     ret, frame_thresh = cv2.threshold(frame_mean,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
     # frame_closing = cv2.morphologyEx(
     #     frame_mean, cv2.MORPH_CLOSE, np.ones((7, 7), dtype=np.uint8))
