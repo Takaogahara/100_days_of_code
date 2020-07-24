@@ -61,10 +61,9 @@ tuner_image, tuner_label = utils.get_mini_batch(train_images_gen)
 # ----------------------------------------------------------------------------------- Keras Tuner
 
 tuner_search = RandomSearch(
-        utils.build_model, max_trials=3, 
+        utils.build_model, max_trials=5, 
         objective='val_accuracy',project_name='Kerastuner', 
         directory='D:/Code/Source/Semiconductor CV/')
-
 
 tuner_search.search(
         train_images_gen, steps_per_epoch=250,
