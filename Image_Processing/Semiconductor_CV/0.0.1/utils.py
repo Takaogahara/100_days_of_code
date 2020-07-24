@@ -16,7 +16,7 @@ from tensorflow import keras
 def show_batch(image_batch, label_batch, CLASS_NAMES):
     plt.figure(figsize=(10,5))
     
-    for img_num in range(10):
+    for img_num in range(5):
         plt.subplot(5,5,img_num+1)
         plt.imshow(image_batch[img_num])
         plt.title(CLASS_NAMES[label_batch[img_num]])
@@ -60,6 +60,12 @@ def build_model(hp):
         keras.layers.Conv2D(
             filters = hp.Int('conv_3_filter', min_value = 32, max_value = 256, step = 16),
             kernel_size = hp.Choice('conv_3_kernel', values = [3,5,7]),
+            activation = 'relu'),
+        keras.layers.MaxPooling2D(pool_size=(2)),
+
+        keras.layers.Conv2D(
+            filters = hp.Int('conv_4_filter', min_value = 32, max_value = 256, step = 16),
+            kernel_size = hp.Choice('conv_4_kernel', values = [3,5,7]),
             activation = 'relu'),
         keras.layers.MaxPooling2D(pool_size=(2)),
 

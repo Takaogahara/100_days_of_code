@@ -18,13 +18,8 @@ from kerastuner.engine.hyperparameters import HyperParameters
 # from PIL import Image
 # import matplotlib.pyplot as plt
 
-print(f'Tensorflow version: {tf.__version__}')
-print(f'Keras version: {keras.__version__}')
-
 gpus = tf.config.experimental.list_physical_devices('GPU')
 tf.config.experimental.set_memory_growth(gpus[0], True)
-
-print(f'TF config completed')
 
 # ----------------------------------------------------------------------------------- Folder Path
 
@@ -61,38 +56,32 @@ test_images_gen = datagen.flow_from_directory(
 # -----------------------------------------------------------------------------------
 
 tuner_image, tuner_label = utils.get_mini_batch(train_images_gen)
-# utils.show_batch(tuner_image, tuner_label, CLASS_NAMES)d
+# utils.show_batch(tuner_image, tuner_label, CLASS_NAMES)
 
 # ----------------------------------------------------------------------------------- Keras Tuner
 
 tuner_search = RandomSearch(
-        utils.build_model, max_trials=5, 
+        utils.build_model, max_trials=3, 
         objective='val_accuracy',project_name='Kerastuner', 
         directory='D:/Code/Source/Semiconductor CV/')
 
 
 tuner_search.search(
-        train_images_gen, 
-        epochs=3, verbose=2,
-        validation_data = test_images_gen)
-
-#  tuner_search.search(
-#         tuner_image, tuner_label, 
-#         epochs=3,validation_split=0.1, 
-#         verbose=2)       
-
+        train_images_gen, steps_per_epoch=250,
+        epochs=3, verbose=1,
+        validation_data = test_images_gen,)
 
 model = tuner_search.get_best_models(num_models=1)[0]
 model.summary()
 
 # -----------------------------------------------------------------------------------
 
-# model.save_weights('D:/Code/Source/Semiconductor CV/CNN_weights.h5')
+model.save_weights('D:/Code/Source/Semiconductor CV/CNN_weights.h5')
 
 # -----------------------------------------------------------------------------------
 
-model.fit(train_images_gen,epochs=5,
-        steps_per_epoch=STEPS_PER_EPOCH_TRAIN,
-        validation_data=test_images_gen,
-        validation_steps=STEPS_PER_EPOCH_TEST)
+# model.fit(train_images_gen,epochs=5,
+#         steps_per_epoch=STEPS_PER_EPOCH_TRAIN,
+#         validation_data=test_images_gen,
+#         validation_steps=STEPS_PER_EPOCH_TEST)
  
