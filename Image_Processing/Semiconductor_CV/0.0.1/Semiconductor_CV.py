@@ -24,63 +24,93 @@ tf.config.experimental.set_memory_growth(gpus[0], True)
 # ----------------------------------------------------------------------------------- Folder Path
 
 general_path = ('D:/Code/Source/Semiconductor CV/Images/')
+
 train_path = ('D:/Code/Source/Semiconductor CV/Images/Train/')
+val_path = ('D:/Code/Source/Semiconductor CV/Images/Validation/')
 test_path = ('D:/Code/Source/Semiconductor CV/Images/Test/')
 
 # ----------------------------------------------------------------------------------- Parameters
 
 image_count_train = sum(len(files) for _, _, files in os.walk(train_path))
 image_count_test = sum(len(files) for _, _, files in os.walk(test_path))
+# TODO: train_image_gen.class_indices -> Return classes dict
 CLASS_NAMES = np.array([name for name in os.listdir(train_path) 
                                 if os.path.isdir(general_path)])
 
 BATCH_SIZE = 16
 TARGET_SIZE = (224, 224)
-STEPS_PER_EPOCH_TRAIN = np.ceil(image_count_train/BATCH_SIZE)
-STEPS_PER_EPOCH_TEST = np.ceil(image_count_test/BATCH_SIZE)
+STEPS_PER_EPOCH = np.ceil(image_count_train/BATCH_SIZE)
 
 # ----------------------------------------------------------------------------------- IMG Generator
 
+datagen_train = ImageDataGenerator(rotation_range=30,
+        width_shift_range=0.1,
+        height_shift_range=0.1,
+        rescale=1/255,
+        shear_range=0.2,
+        zoom_range=0.2,
+        horizontal_flip=True,
+        fill_mode='nearest'
+        )
+
 datagen = ImageDataGenerator(rescale=1/255)
 
-train_images_gen = datagen.flow_from_directory(
+# ----------------------------------------------------------------------------------- Batch Flow from Directory
+
+train_images_gen = datagen_train.flow_from_directory(
         train_path, 
         batch_size=BATCH_SIZE, target_size=TARGET_SIZE, 
         shuffle=True, classes=list(CLASS_NAMES))
 
+val_images_gen = datagen.flow_from_directory(
+        val_path, batch_size=BATCH_SIZE, 
+        target_size=TARGET_SIZE, shuffle=True)
 
 test_images_gen = datagen.flow_from_directory(
         test_path, batch_size=BATCH_SIZE, 
         target_size=TARGET_SIZE, shuffle=True)
 
-# -----------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------- Build Model
+# ------------------------------------ Load Model
 
-tuner_image, tuner_label = utils.get_mini_batch(train_images_gen)
-# utils.show_batch(tuner_image, tuner_label, CLASS_NAMES)
-
-# ----------------------------------------------------------------------------------- Keras Tuner
-
-tuner_search = RandomSearch(
-        utils.build_model, max_trials=5, 
-        objective='val_accuracy',project_name='Kerastuner', 
-        directory='D:/Code/Source/Semiconductor CV/')
-
-tuner_search.search(
-        train_images_gen, steps_per_epoch=250,
-        epochs=3, verbose=1,
-        validation_data = test_images_gen,)
-
-model = tuner_search.get_best_models(num_models=1)[0]
+model = keras.models.load_model('D:/Code/Source/Semiconductor CV/h5/fit_weights.h5')
 model.summary()
 
-# -----------------------------------------------------------------------------------
+# ------------------------------------ Normal Model
 
-model.save_weights('D:/Code/Source/Semiconductor CV/CNN_weights.h5')
+# model = utils.build_model_test()
+# model.save('D:/Code/Source/Semiconductor CV/h5/Single_weights.h5')
+# model.summary()
 
-# -----------------------------------------------------------------------------------
+# ------------------------------------ Keras Tuner
 
-# model.fit(train_images_gen,epochs=5,
-#         steps_per_epoch=STEPS_PER_EPOCH_TRAIN,
-#         validation_data=test_images_gen,
-#         validation_steps=STEPS_PER_EPOCH_TEST)
- 
+# tuner_search = RandomSearch(
+#         utils.build_model, max_trials = 5, 
+#         objective ='val_accuracy',project_name = 'Kerastuner', 
+#         directory ='D:/Code/Source/Semiconductor CV/')
+
+# tuner_search.search(
+#         train_images_gen, steps_per_epoch = 150,
+#         epochs = 3, verbose = 1,
+#         validation_data = val_images_gen,)
+
+# model = tuner_search.get_best_models(num_models=1)[0]
+# model.save('D:/Code/Source/Semiconductor CV/h5/KerasTuner_weights.h5')
+# model.summary()
+
+# ----------------------------------------------------------------------------------- Fit Model
+
+# model.fit(train_images_gen,epochs = 5,
+#         steps_per_epoch = 150,
+#         validation_data = val_images_gen)
+
+# model.save('D:/Code/Source/Semiconductor CV/h5/fit_weights.h5')
+# model.summary()
+
+# ----------------------------------------------------------------------------------- Predict Model
+
+prediction_prob = model.predict(test_images_gen)
+
+print(prediction_prob)
+
+x = 25
