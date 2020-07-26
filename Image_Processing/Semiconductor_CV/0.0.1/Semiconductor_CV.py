@@ -16,7 +16,7 @@ from kerastuner import RandomSearch
 from kerastuner.engine.hyperparameters import HyperParameters
 
 # from PIL import Image
-# import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 gpus = tf.config.experimental.list_physical_devices('GPU')
 tf.config.experimental.set_memory_growth(gpus[0], True)
@@ -56,55 +56,49 @@ datagen = ImageDataGenerator(rescale=1/255)
 
 train_images_gen = datagen_train.flow_from_directory(
         train_path, 
-        batch_size=BATCH_SIZE, target_size=TARGET_SIZE, 
-        shuffle=True) #class_mode='binary'
+        batch_size=BATCH_SIZE, class_mode='binary',
+        target_size=TARGET_SIZE, shuffle=True)
 
 val_images_gen = datagen.flow_from_directory(
         val_path,
-        batch_size=BATCH_SIZE, #class_mode='binary'
+        batch_size=BATCH_SIZE, class_mode='binary',
         target_size=TARGET_SIZE, shuffle=True)
 
 test_images_gen = datagen.flow_from_directory(
         test_path, 
-        batch_size=BATCH_SIZE, #class_mode='binary'
+        batch_size=BATCH_SIZE, class_mode='binary',
         target_size=TARGET_SIZE, shuffle=True)
 
 # ----------------------------------------------------------------------------------- Build Model
-# ------------------------------------ Load Model
+# ------------------------------------ Model
 
-# model = keras.models.load_model('D:/Code/Source/Semiconductor CV/h5/fit_weights.h5')
+# model = utils.generate_model(model_type = 'load', file_name = 'fit_weights.h5')
 # model.summary()
-
-# ------------------------------------ Normal Model
-
-model = utils.build_model_test()
-model.save('D:/Code/Source/Semiconductor CV/h5/Single_weights.h5')
-model.summary()
 
 # ------------------------------------ Keras Tuner
 
-# tuner_search = RandomSearch(
-#         utils.build_model, max_trials = 5, 
-#         objective ='val_accuracy',project_name = 'Kerastuner', 
-#         directory ='D:/Code/Source/Semiconductor CV/')
+tuner_search = RandomSearch(
+        utils.build_model, max_trials = 5, 
+        objective ='val_accuracy',project_name = 'Kerastuner', 
+        directory ='D:/Code/Source/Semiconductor CV/')
 
-# tuner_search.search(
-#         train_images_gen, steps_per_epoch = 150,
-#         epochs = 3, verbose = 1,
-#         validation_data = val_images_gen)
+tuner_search.search(
+        train_images_gen, steps_per_epoch = 250,
+        epochs = 3, verbose = 1,
+        validation_data = val_images_gen)
 
-# model = tuner_search.get_best_models(num_models=1)[0]
-# model.save('D:/Code/Source/Semiconductor CV/h5/KerasTuner_weights.h5')
-# model.summary()
+model = tuner_search.get_best_models(num_models=1)[0]
+model.save('D:/Code/Source/Semiconductor CV/h5/KerasTuner_weights.h5')
+model.summary()
 
 # ----------------------------------------------------------------------------------- Fit Model
 
-model.fit(train_images_gen, epochs = 5,
-        steps_per_epoch = 150,
-        validation_data = val_images_gen)
+results_fit = model.fit(train_images_gen, epochs = 100,
+        steps_per_epoch = STEPS_PER_EPOCH,
+        validation_data = val_images_gen) 
+utils.plot_history(results_fit)
 
 model.save('D:/Code/Source/Semiconductor CV/h5/fit_weights.h5')
-model.summary()
 
 # ----------------------------------------------------------------------------------- Predict Model
 

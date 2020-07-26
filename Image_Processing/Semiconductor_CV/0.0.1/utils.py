@@ -10,39 +10,8 @@ import matplotlib.pyplot as plt
 
 import tensorflow as tf
 from tensorflow import keras
-
-# -----------------------------------------------------------------------------------
-
-def get_mini_batch(image_generator):
-
-    tuner_image, batch_label = next(image_generator)
-
-    tuner_label = []
-    for iter_tuner in range(len(batch_label)):
-        if (batch_label[iter_tuner][0] == 0.0):
-            tuner_label.append(1)
-        else:
-            tuner_label.append(0)
-    tuner_label = np.array(tuner_label)
-
-    return tuner_image, tuner_label
-
-# tuner_image, tuner_label = utils.get_mini_batch(train_images_gen)
-
-# -----------------------------------------------------------------------------------
-
-def show_batch(image_batch, label_batch, CLASS_NAMES):
-    plt.figure(figsize=(10,5))
-    
-    for img_num in range(5):
-        plt.subplot(5,5,img_num+1)
-        plt.imshow(image_batch[img_num])
-        plt.title(CLASS_NAMES[label_batch[img_num]])
-        plt.axis('off')
-    
-    plt.show()
-
-# utils.show_batch(tuner_image, tuner_label, CLASS_NAMES)
+from kerastuner import RandomSearch
+from kerastuner.engine.hyperparameters import HyperParameters
 
 # ----------------------------------------------------------------------------------- Model - Keras Tuner
 
@@ -99,8 +68,8 @@ def build_model(hp):
 
 # ----------------------------------------------------------------------------------- Model
 
-def build_model_test():
-    model_test = keras.Sequential([
+def build_model_fix():
+    model_fix = keras.Sequential([
         keras.layers.Conv2D(32, (3,3), input_shape = (224, 224, 3), activation='relu'),
         keras.layers.MaxPooling2D(pool_size = (2,2)),
 
@@ -123,9 +92,38 @@ def build_model_test():
         keras.layers.Dropout(0.4),
 
         keras.layers.Dense(units=120, activation='relu'),
-        keras.layers.Dense(units=2, activation='sigmoid')])
+        keras.layers.Dense(units=1, activation='sigmoid')])
 
-    model_test.compile(optimizer='SGD', loss='binary_crossentropy', metrics=['accuracy'])
+    model_fix.compile(optimizer='Adam', loss='binary_crossentropy', metrics=['accuracy'])
     # SGD Adam
 
-    return model_test
+    return model_fix
+
+# ----------------------------------------------------------------------------------- 
+
+def generate_model(model_type = 'single', 
+    folder_path = 'D:/Code/Source/Semiconductor CV/h5/', 
+    file_name = 'fit_weights.h5'):
+
+    if (model_type == 'load'):
+        model = keras.models.load_model('D:/Code/Source/Semiconductor CV/h5/'+str(file_name))
+
+    elif (model_type == 'single'):
+        model = build_model_fix()
+        model.save(str(folder_path)+str(file_name))
+    
+    else:
+        print('model not found')
+
+    return model
+
+def plot_history(results_fit, save_path = 'D:/Code/Source/Semiconductor CV/'):
+    plt.plot(results_fit.history['accuracy'])
+    plt.plot(results_fit.history['val_accuracy'])
+    plt.title('model accuracy')
+    plt.ylabel('accuracy')
+    plt.xlabel('epoch')
+    plt.legend(['train', 'test'], loc='upper left')
+    plt.savefig(str(save_path)+'train_test_acc.png')
+
+    plt.show()
