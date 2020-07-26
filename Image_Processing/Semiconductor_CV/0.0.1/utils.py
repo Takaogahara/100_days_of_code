@@ -88,7 +88,7 @@ def build_model(hp):
             units = hp.Int('dense_1_units', min_value = 32, max_value = 256, step = 16),
             activation = 'relu'),
 
-        keras.layers.Dense(2, activation = 'sigmoid')])#softmax
+        keras.layers.Dense(1, activation = 'sigmoid')])#softmax
 
     model.compile(optimizer = keras.optimizers.Adam(hp.Choice('learning_rate', values = [1e-2, 1e-3, 1e-4])),
         loss = 'binary_crossentropy', #sparse_categorical_crossentropy categorical_crossentropy binary_crossentropy 

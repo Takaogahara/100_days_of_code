@@ -33,9 +33,6 @@ test_path = ('D:/Code/Source/Semiconductor CV/Images/Test/')
 
 image_count_train = sum(len(files) for _, _, files in os.walk(train_path))
 image_count_test = sum(len(files) for _, _, files in os.walk(test_path))
-# TODO: train_image_gen.class_indices -> Return classes dict
-CLASS_NAMES = np.array([name for name in os.listdir(train_path) 
-                                if os.path.isdir(general_path)])
 
 BATCH_SIZE = 16
 TARGET_SIZE = (224, 224)
@@ -60,27 +57,29 @@ datagen = ImageDataGenerator(rescale=1/255)
 train_images_gen = datagen_train.flow_from_directory(
         train_path, 
         batch_size=BATCH_SIZE, target_size=TARGET_SIZE, 
-        shuffle=True, classes=list(CLASS_NAMES))
+        shuffle=True, class_mode='binary')
 
 val_images_gen = datagen.flow_from_directory(
-        val_path, batch_size=BATCH_SIZE, 
+        val_path,
+        batch_size=BATCH_SIZE, class_mode='binary',
         target_size=TARGET_SIZE, shuffle=True)
 
 test_images_gen = datagen.flow_from_directory(
-        test_path, batch_size=BATCH_SIZE, 
+        test_path, 
+        batch_size=BATCH_SIZE, class_mode='binary',
         target_size=TARGET_SIZE, shuffle=True)
 
 # ----------------------------------------------------------------------------------- Build Model
 # ------------------------------------ Load Model
 
-model = keras.models.load_model('D:/Code/Source/Semiconductor CV/h5/fit_weights.h5')
-model.summary()
+# model = keras.models.load_model('D:/Code/Source/Semiconductor CV/h5/fit_weights.h5')
+# model.summary()
 
 # ------------------------------------ Normal Model
 
-# model = utils.build_model_test()
-# model.save('D:/Code/Source/Semiconductor CV/h5/Single_weights.h5')
-# model.summary()
+model = utils.build_model_test()
+model.save('D:/Code/Source/Semiconductor CV/h5/Single_weights.h5')
+model.summary()
 
 # ------------------------------------ Keras Tuner
 
@@ -92,7 +91,7 @@ model.summary()
 # tuner_search.search(
 #         train_images_gen, steps_per_epoch = 150,
 #         epochs = 3, verbose = 1,
-#         validation_data = val_images_gen,)
+#         validation_data = val_images_gen)
 
 # model = tuner_search.get_best_models(num_models=1)[0]
 # model.save('D:/Code/Source/Semiconductor CV/h5/KerasTuner_weights.h5')
@@ -100,12 +99,12 @@ model.summary()
 
 # ----------------------------------------------------------------------------------- Fit Model
 
-# model.fit(train_images_gen,epochs = 5,
-#         steps_per_epoch = 150,
-#         validation_data = val_images_gen)
+model.fit(train_images_gen, epochs = 5,
+        steps_per_epoch = 150,
+        validation_data = val_images_gen)
 
-# model.save('D:/Code/Source/Semiconductor CV/h5/fit_weights.h5')
-# model.summary()
+model.save('D:/Code/Source/Semiconductor CV/h5/fit_weights.h5')
+model.summary()
 
 # ----------------------------------------------------------------------------------- Predict Model
 
