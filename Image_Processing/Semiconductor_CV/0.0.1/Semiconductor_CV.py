@@ -72,33 +72,33 @@ test_images_gen = datagen.flow_from_directory(
 # ----------------------------------------------------------------------------------- Build Model
 # ------------------------------------ Model
 
-# model = utils.generate_model(model_type = 'load', file_name = 'fit_weights.h5')
-# model.summary()
+model = utils.generate_model(model_type = 'load', file_name = 'fit_weights.h5')
+model.summary()
 
 # ------------------------------------ Keras Tuner
 
-tuner_search = RandomSearch(
-        utils.build_model, max_trials = 5, 
-        objective ='val_accuracy',project_name = 'Kerastuner', 
-        directory ='D:/Code/Source/Semiconductor CV/')
+# tuner_search = RandomSearch(
+#         utils.build_model, max_trials = 5, 
+#         objective ='val_accuracy',project_name = 'Kerastuner', 
+#         directory ='D:/Code/Source/Semiconductor CV/')
 
-tuner_search.search(
-        train_images_gen, steps_per_epoch = 250,
-        epochs = 3, verbose = 1,
-        validation_data = val_images_gen)
+# tuner_search.search(
+#         train_images_gen, steps_per_epoch = 500,
+#         epochs = 3, verbose = 1,
+#         validation_data = val_images_gen)
 
-model = tuner_search.get_best_models(num_models=1)[0]
-model.save('D:/Code/Source/Semiconductor CV/h5/KerasTuner_weights.h5')
-model.summary()
+# model = tuner_search.get_best_models(num_models=1)[0]
+# model.save('D:/Code/Source/Semiconductor CV/h5/KerasTuner_weights.h5')
+# model.summary()
 
 # ----------------------------------------------------------------------------------- Fit Model
 
-results_fit = model.fit(train_images_gen, epochs = 100,
-        steps_per_epoch = STEPS_PER_EPOCH,
-        validation_data = val_images_gen) 
-utils.plot_history(results_fit)
+# results_fit = model.fit(train_images_gen, epochs = 100,
+#         steps_per_epoch = STEPS_PER_EPOCH,
+#         validation_data = val_images_gen) 
+# utils.plot_history(results_fit)
 
-model.save('D:/Code/Source/Semiconductor CV/h5/fit_weights.h5')
+# model.save('D:/Code/Source/Semiconductor CV/h5/fit_weights.h5')
 
 # ----------------------------------------------------------------------------------- Predict Model
 
