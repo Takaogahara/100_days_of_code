@@ -57,16 +57,16 @@ datagen = ImageDataGenerator(rescale=1/255)
 train_images_gen = datagen_train.flow_from_directory(
         train_path, 
         batch_size=BATCH_SIZE, target_size=TARGET_SIZE, 
-        shuffle=True, class_mode='binary')
+        shuffle=True) #class_mode='binary'
 
 val_images_gen = datagen.flow_from_directory(
         val_path,
-        batch_size=BATCH_SIZE, class_mode='binary',
+        batch_size=BATCH_SIZE, #class_mode='binary'
         target_size=TARGET_SIZE, shuffle=True)
 
 test_images_gen = datagen.flow_from_directory(
         test_path, 
-        batch_size=BATCH_SIZE, class_mode='binary',
+        batch_size=BATCH_SIZE, #class_mode='binary'
         target_size=TARGET_SIZE, shuffle=True)
 
 # ----------------------------------------------------------------------------------- Build Model
