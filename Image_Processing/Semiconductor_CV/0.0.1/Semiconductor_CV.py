@@ -67,7 +67,7 @@ val_images_gen = datagen.flow_from_directory(
 test_images_gen = datagen.flow_from_directory(
         test_path, 
         batch_size=BATCH_SIZE, class_mode='binary',
-        target_size=TARGET_SIZE, shuffle=True)
+        target_size=TARGET_SIZE, shuffle=False)
 
 # ----------------------------------------------------------------------------------- Build Model
 # ------------------------------------ Model
@@ -105,5 +105,12 @@ model.summary()
 prediction_prob = model.predict(test_images_gen)
 
 print(prediction_prob)
+
+for iter_getname in test_images_gen:
+    batch_index = (test_images_gen.batch_index - 1) * test_images_gen.batch_size
+    print(test_images_gen.filenames[batch_index : batch_index + test_images_gen.batch_size])
+    print(f'*** {batch_index}')
+    if batch_index == (test_images_gen.n-(BATCH_SIZE+BATCH_SIZE/2)):
+            break
 
 x = 25
