@@ -1,1 +1,0 @@
-# Kaggle Digit Recognizer competition
